@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="Student-homework-manage"
+  id="myeclipse.1528173948112"
+  context-root="/Student-homework-manage"
+  j2ee-spec="6.0"
+  archive="Student-homework-manage.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

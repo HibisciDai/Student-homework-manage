@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzu.hibiscidai.dao.AdminDao">
+	<resultMap id="BaseResultMap" type="zzu.hibiscidai.entity.Admin">
+		<id column="a_id" jdbcType="INTEGER" property="a_id" />
+		<result column="a_usename" jdbcType="VARCHAR" property="a_usename" />
+		<result column="a_password" jdbcType="VARCHAR" property="a_password" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a_id, a_usename, a_password
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_admin
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_admin
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="zzu.hibiscidai.entity.Admin">
+		insert into t_admin (a_id,
+		a_usename, a_password
+		)
+		values (#{a_id,jdbcType=INTEGER},
+		#{a_usename,jdbcType=VARCHAR},
+		#{a_password,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="zzu.hibiscidai.entity.Admin">
+		insert into t_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="a_id != null">
+				a_id,
+			</if>
+			<if test="a_usename != null">
+				a_usename,
+			</if>
+			<if test="a_password != null">
+				a_password,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="a_id != null">
+				#{a_id,jdbcType=INTEGER},
+			</if>
+			<if test="a_usename != null">
+				#{a_usename,jdbcType=VARCHAR},
+			</if>
+			<if test="a_password != null">
+				#{a_password,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		<set>
+			<if test="a_usename != null">
+				a_usename = #{a_usename,jdbcType=VARCHAR},
+			</if>
+			<if test="a_password != null">
+				a_password = #{a_password,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		set
+		a_usename = #{a_usename,jdbcType=VARCHAR},
+		a_password =
+		#{a_password,jdbcType=VARCHAR}
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</update>
+	<resultMap id="BaseResultMap" type="zzu.hibiscidai.entity.Admin">
+		<id column="a_id" jdbcType="INTEGER" property="aId" />
+		<result column="a_usename" jdbcType="VARCHAR" property="aUsename" />
+		<result column="a_password" jdbcType="VARCHAR" property="aPassword" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a_id, a_usename, a_password
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_admin
+		where a_id = #{aId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_admin
+		where a_id = #{aId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="zzu.hibiscidai.entity.Admin">
+		insert into t_admin (a_id,
+		a_usename, a_password
+		)
+		values (#{aId,jdbcType=INTEGER},
+		#{aUsename,jdbcType=VARCHAR},
+		#{aPassword,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="zzu.hibiscidai.entity.Admin">
+		insert into t_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="aId != null">
+				a_id,
+			</if>
+			<if test="aUsename != null">
+				a_usename,
+			</if>
+			<if test="aPassword != null">
+				a_password,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="aId != null">
+				#{aId,jdbcType=INTEGER},
+			</if>
+			<if test="aUsename != null">
+				#{aUsename,jdbcType=VARCHAR},
+			</if>
+			<if test="aPassword != null">
+				#{aPassword,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		<set>
+			<if test="aUsename != null">
+				a_usename = #{aUsename,jdbcType=VARCHAR},
+			</if>
+			<if test="aPassword != null">
+				a_password = #{aPassword,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where a_id = #{aId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		set
+		a_usename = #{aUsename,jdbcType=VARCHAR},
+		a_password =
+		#{aPassword,jdbcType=VARCHAR}
+		where a_id = #{aId,jdbcType=INTEGER}
+	</update>
+	<resultMap id="BaseResultMap" type="zzu.hibiscidai.entity.Admin">
+		<id column="a_id" jdbcType="INTEGER" property="a_id" />
+		<result column="a_usename" jdbcType="VARCHAR" property="a_usename" />
+		<result column="a_password" jdbcType="VARCHAR" property="a_password" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a_id, a_usename, a_password
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_admin
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_admin
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="zzu.hibiscidai.entity.Admin">
+		<selectKey keyProperty="a_id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_admin (a_usename, a_password)
+		values
+		(#{a_usename,jdbcType=VARCHAR}, #{a_password,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="zzu.hibiscidai.entity.Admin">
+		<selectKey keyProperty="a_id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="a_usename != null">
+				a_usename,
+			</if>
+			<if test="a_password != null">
+				a_password,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="a_usename != null">
+				#{a_usename,jdbcType=VARCHAR},
+			</if>
+			<if test="a_password != null">
+				#{a_password,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		<set>
+			<if test="a_usename != null">
+				a_usename = #{a_usename,jdbcType=VARCHAR},
+			</if>
+			<if test="a_password != null">
+				a_password = #{a_password,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="zzu.hibiscidai.entity.Admin">
+		update t_admin
+		set
+		a_usename = #{a_usename,jdbcType=VARCHAR},
+		a_password =
+		#{a_password,jdbcType=VARCHAR}
+		where a_id = #{a_id,jdbcType=INTEGER}
+	</update>
+</mapper>

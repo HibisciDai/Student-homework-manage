@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzu.hibiscidai.dao.StudentStudentDao">
+	<resultMap id="BaseResultMap" type="zzu.hibiscidai.entity.Student">
+		<id column="s_id" jdbcType="INTEGER" property="s_id" />
+		<result column="s_username" jdbcType="VARCHAR" property="s_username" />
+		<result column="s_password" jdbcType="VARCHAR" property="s_password" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		s_id, s_username, s_password
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_student
+		where s_id = #{s_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_student
+		where s_id = #{s_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="zzu.hibiscidai.entity.Student">
+		insert into t_student (s_id, s_username, s_password
+		)
+		values (#{s_id,jdbcType=INTEGER}, #{s_username,jdbcType=VARCHAR},
+		#{s_password,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="zzu.hibiscidai.entity.Student">
+		insert into t_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="s_id != null">
+				s_id,
+			</if>
+			<if test="s_username != null">
+				s_username,
+			</if>
+			<if test="s_password != null">
+				s_password,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="s_id != null">
+				#{s_id,jdbcType=INTEGER},
+			</if>
+			<if test="s_username != null">
+				#{s_username,jdbcType=VARCHAR},
+			</if>
+			<if test="s_password != null">
+				#{s_password,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="zzu.hibiscidai.entity.Student">
+		update t_student
+		<set>
+			<if test="s_username != null">
+				s_username = #{s_username,jdbcType=VARCHAR},
+			</if>
+			<if test="s_password != null">
+				s_password = #{s_password,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where s_id = #{s_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="zzu.hibiscidai.entity.Student">
+		update t_student
+		set s_username = #{s_username,jdbcType=VARCHAR},
+		s_password = #{s_password,jdbcType=VARCHAR}
+		where s_id = #{s_id,jdbcType=INTEGER}
+	</update>
+</mapper>

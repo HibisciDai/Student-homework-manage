@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDAO">
+	<select id="selectByUsernameAndPassword" resultType="User">
+		select *
+		from t_user where username=#{username} and password=#{password}
+	</select>
+	<insert id="insertOne">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select aa.nextVal from dual
+		</selectKey>
+		insert into t_user (id,username,password)
+		values(#{id},#{username},#{password})
+	</insert>
+	<select id="selectAll" resultType="User">
+		select * from t_user
+	</select>
+</mapper>

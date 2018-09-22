@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="user" extends="struts-default" namespace="/user">
+
+		<!-- 默认全局result -->
+		<global-results>
+			<result name="login">/Login.jsp</result>
+		</global-results>
+
+		<!-- 删除一条数据 -->
+		<action name="deleteUser" class="UserAction" method="deleteUser">
+			<result name="success" type="redirectAction">selectAll</result>
+			<result name="error">/Error.jsp</result>
+		</action>
+		<!-- 通过ID查询一条数据 -->
+		<action name="selectById" class="UserAction" method="selectById">
+			<result name="success">/Update.jsp</result>
+			<result name="error">/Error.jsp</result>
+		</action>
+		<!-- 更新一条数据 -->
+		<action name="update" class="UserAction" method="update">
+			<result name="success" type="redirectAction">selectAll</result>
+			<result name="error">/Error.jsp</result>
+		</action>
+		<!-- 退出、注销 -->
+		<action name="logout" class="UserAction" method="logout">
+			<result name="logout">/Login.jsp</result>
+		</action>
+
+		<!-- 批量删除 -->
+		<action name="deleteBatch" class="UserAction" method="deleteBatch">
+			<result name="success" type="redirectAction">selectAll</result>
+			<result name="error">/Error.jsp</result>
+		</action>
+
+		<!-- 登陆 -->
+		<action name="login" class="UserAction" method="login">
+			<result name="success" type="redirectAction">selectAll</result>
+			<result name="failed">/Login.jsp</result>
+		</action>
+
+		<!-- 注册 -->
+		<action name="register" class="UserAction" method="register">
+			<result name="registerOk">/Login.jsp</result>
+		</action>
+
+		<!-- 查询所有 -->
+		<action name="selectAll" class="UserAction" method="selectAll">
+			<result name="showall">/ShowAll.jsp</result>
+		</action>
+	</package>
+
+</struts>

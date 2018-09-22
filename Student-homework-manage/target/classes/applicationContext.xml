@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	    http://www.springframework.org/schema/context 
+	    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	    http://www.springframework.org/schema/tx
+	    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    ">
+
+	<!-- 读取小配置文件 -->
+	<context:property-placeholder location="classpath:/jdbc.properties" />
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+
+	<!--创建SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<!-- 起别名 -->
+		<property name="typeAliasesPackage">
+			<value>zzu.hibiscidai.entity</value>
+		</property>
+		<!-- Mapper文件注册 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:zzu/hibiscidai/dao/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 创建DAO对象 -->
+	<bean id="mapperConfigure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>zzu.hibiscidai.dao</value>
+		</property>
+	</bean>
+
+	<!-- 配置Service类 便于spring工厂创建对象 -->
+	<bean id="userService" class="zzu.hibiscidai.service.UserServiceImpl">
+		<!-- 注入DAO对象 -->
+		<property name="userDAO">
+			<ref local="userDAO" />
+		</property>
+	</bean>
+	<!-- 引入控制事务的代码 -->
+	<bean id="dstm"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	<!-- 引入事务的描述 -->
+	<tx:advice id="txAdvice" transaction-manager="dstm">
+		<tx:attributes>
+			<tx:method name="modify*" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 组装切面 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* zzu.hibiscidai.service..*(..))"
+			id="pc" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc" />
+	</aop:config>
+
+	<!-- 配置Struts2中的Action类 便于Spring创建Action对象 -->
+	<bean id="UserAction" class="zzu.hibiscidai.action.UserAction" scope="prototype">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+</beans>

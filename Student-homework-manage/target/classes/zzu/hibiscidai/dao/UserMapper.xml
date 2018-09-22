@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDAO">
+
+	<!-- 删除一条数据 -->
+	<delete id="deleteUser">
+		delete from T_USER where id=#{id}
+	</delete>
+
+	<!-- 更新一条数据 -->
+	<update id="update">
+		update
+		T_USER
+		<set>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="password != null">
+				password = #{password}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- 通过ID查询一条数据 -->
+	<select id="selectById" resultType="User">
+		select * from T_USER where id
+		= #{id}
+	</select>
+
+
+	<!-- 批量删除 -->
+	<delete id="deleteBatch">
+		delete from T_USER
+		where id in
+		<choose>
+			<when test="ids != null and ids.size() > 0">
+				<foreach collection="list" open="(" item="ids" separator=","
+					close=")">
+					#{ids}
+				</foreach>
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</delete>
+
+	<!-- 查用户总数 -->
+	<!-- 为分页做准备 -->
+
+	<select id="countUser" resultType="Integer">
+		select count(*) from T_USER
+	</select>
+
+	<!-- 分页展示所有用户 -->
+	<select id="selectAll" resultType="User">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		t_user1.*, ROWNUM AS r
+		FROM
+		T_USER t_user1
+		<where>
+			<if test="end != null">
+  	      <![CDATA[  ROWNUM <= #{end}  ]]>
+			</if>
+		</where>
+		)
+		<where>
+			<if test="start != null">
+	  <![CDATA[  r >= #{start}  ]]>
+			</if>
+		</where>
+	</select>
+
+
+	<select id="selectByUsernameAndPassword" resultType="User">
+		select *
+		from T_USER where username=#{username} and password=#{password}
+	</select>
+
+	<insert id="insertOne">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select t_user_SEQUENCE.nextVal from dual
+		</selectKey>
+		insert into T_USER
+		(id,username,password)
+		values
+		(#{id},#{username},#{password})
+	</insert>
+
+</mapper>

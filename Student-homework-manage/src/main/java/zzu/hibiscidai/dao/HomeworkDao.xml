@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzu.hibiscidai.dao.HomeworkDao">
+	<resultMap id="BaseResultMap" type="zzu.hibiscidai.entity.Homework">
+		<id column="h_id" jdbcType="INTEGER" property="h_id" />
+		<result column="h_teacher_id" jdbcType="INTEGER" property="h_teacher_id" />
+		<result column="h_update" jdbcType="TIME" property="h_update" />
+		<result column="h_donedate" jdbcType="TIME" property="h_donedate" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="zzu.hibiscidai.entity.Homework">
+		<result column="h_context" jdbcType="LONGVARCHAR" property="h_context" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		h_id, h_teacher_id, h_update, h_donedate
+	</sql>
+	<sql id="Blob_Column_List">
+		h_context
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_homework
+		where h_id = #{h_id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_homework
+		where h_id = #{h_id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="zzu.hibiscidai.entity.Homework">
+		insert into t_homework (h_id, h_teacher_id, h_update,
+		h_donedate, h_context)
+		values (#{h_id,jdbcType=INTEGER}, #{h_teacher_id,jdbcType=INTEGER},
+		#{h_update,jdbcType=TIME},
+		#{h_donedate,jdbcType=TIME}, #{h_context,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="zzu.hibiscidai.entity.Homework">
+		insert into t_homework
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="h_id != null">
+				h_id,
+			</if>
+			<if test="h_teacher_id != null">
+				h_teacher_id,
+			</if>
+			<if test="h_update != null">
+				h_update,
+			</if>
+			<if test="h_donedate != null">
+				h_donedate,
+			</if>
+			<if test="h_context != null">
+				h_context,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="h_id != null">
+				#{h_id,jdbcType=INTEGER},
+			</if>
+			<if test="h_teacher_id != null">
+				#{h_teacher_id,jdbcType=INTEGER},
+			</if>
+			<if test="h_update != null">
+				#{h_update,jdbcType=TIME},
+			</if>
+			<if test="h_donedate != null">
+				#{h_donedate,jdbcType=TIME},
+			</if>
+			<if test="h_context != null">
+				#{h_context,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="zzu.hibiscidai.entity.Homework">
+		update t_homework
+		<set>
+			<if test="h_teacher_id != null">
+				h_teacher_id = #{h_teacher_id,jdbcType=INTEGER},
+			</if>
+			<if test="h_update != null">
+				h_update = #{h_update,jdbcType=TIME},
+			</if>
+			<if test="h_donedate != null">
+				h_donedate = #{h_donedate,jdbcType=TIME},
+			</if>
+			<if test="h_context != null">
+				h_context = #{h_context,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where h_id = #{h_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="zzu.hibiscidai.entity.Homework">
+		update t_homework
+		set h_teacher_id = #{h_teacher_id,jdbcType=INTEGER},
+		h_update = #{h_update,jdbcType=TIME},
+		h_donedate = #{h_donedate,jdbcType=TIME},
+		h_context = #{h_context,jdbcType=LONGVARCHAR}
+		where h_id = #{h_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="zzu.hibiscidai.entity.Homework">
+		update t_homework
+		set h_teacher_id = #{h_teacher_id,jdbcType=INTEGER},
+		h_update = #{h_update,jdbcType=TIME},
+		h_donedate = #{h_donedate,jdbcType=TIME}
+		where h_id = #{h_id,jdbcType=INTEGER}
+	</update>
+</mapper>
